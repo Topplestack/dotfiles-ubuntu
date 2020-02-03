@@ -5,36 +5,32 @@ sudo add-apt-repository universe
 sudo add-apt-repository multiverse
 sudo add-apt-repository restricted
 
-sudo apt-get update -qq
-sudo apt-get upgrade dist -y
+sudo apt update -qq
+sudo apt upgrade dist -y
 
 tput setaf 2; echo "Install git, curl, zips ..."; tput sgr0
-sudo apt-get install -y curl
-sudo apt-get install -y wget
-sudo apt-get install -y tree
-sudo apt-get install -y build-essential
-sudo apt-get install -y ppa-purge
-sudo apt-get install -y git
-sudo apt-get install -y git-lfs
-sudo apt-get install -y git-flow
-sudo apt-get install -y mercurial
-sudo apt-get install -y fossil
-sudo apt-get install -y subversion
-sudo apt-get install -y openssh-client
-sudo apt-get install -y openssh-server
-sudo apt-get install -y shellcheck
-sudo apt-get install -y alacarte
-sudo apt-get install -y gnome-tweak-tool
-sudo apt-get install -y gnome-shell-extensions
-sudo apt-get install -y chrome-gnome-shell
-sudo apt-get install -y snapd
-sudo apt-get install -y snapcraft
-sudo apt-get install -y libssl-dev
-sudo apt-get install -y fonts-firacode
-sudo apt-get install -y nnn
-sudo apt-get install -y direnv
-sudo apt-get install -y bash-completion
-sudo apt-get install -y fonts-powerline
+sudo apt install -y curl
+sudo apt install -y wget
+sudo apt install -y tree
+sudo apt install -y build-essential
+sudo apt install -y ppa-purge
+sudo apt install -y git
+sudo apt install -y git-lfs
+sudo apt install -y git-flow
+sudo apt install -y openssh-client
+sudo apt install -y openssh-server
+sudo apt install -y shellcheck
+sudo apt install -y gnome-tweak-tool
+sudo apt install -y gnome-shell-extensions
+sudo apt install -y chrome-gnome-shell
+sudo apt install -y snapd
+sudo apt install -y snapcraft
+sudo apt install -y libssl-dev
+sudo apt install -y fonts-firacode
+sudo apt install -y nnn
+sudo apt install -y direnv
+sudo apt install -y bash-completion
+sudo apt install -y fonts-powerline
 
 tput setaf 2; echo "Install chrome, vlc, krita, gimp"; tput sgr0
 sudo snap install chromium
@@ -61,8 +57,8 @@ tput setaf 2; echo "Do you want to install vanilla Gnome"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get remove -y gnome-shell-extension-ubuntu-dock
-            sudo apt-get install -y gnome-session
+            sudo apt remove -y gnome-shell-extension-ubuntu-dock
+            sudo apt install -y gnome-session
 	          sudo update-alternatives --config gdm3.css
 
             gsettings set org.gnome.shell enable-hot-corners false
@@ -79,7 +75,7 @@ tput setaf 2; echo "Do you want to install Zeal - Documentation"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y zeal
+            sudo apt install -y zeal
             break;;
         No ) break;;
     esac
@@ -91,8 +87,8 @@ select yn in "Yes" "No"; do
     case $yn in
         Yes )
             sudo add-apt-repository -y ppa:ubuntu-mozilla-daily/ppa
-            sudo apt-get update -qq
-            sudo apt-get install -y firefox-trunk
+            sudo apt update -qq
+            sudo apt install -y firefox-trunk
             break;;
         No ) break;;
     esac
@@ -104,8 +100,8 @@ select yn in "Yes" "No"; do
     case $yn in
         Yes )
             sudo add-apt-repository ppa:webupd8team/y-ppa-manager
-            sudo apt-get update -qq
-            sudo apt-get install -y  y-ppa-manager
+            sudo apt update -qq
+            sudo apt install -y  y-ppa-manager
             break;;
         No ) break;;
     esac
@@ -116,7 +112,7 @@ tput setaf 2; echo "Do you want to install Dropbox"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get -y install nautilus-dropbox
+            sudo apt -y install nautilus-dropbox
             break;;
         No ) break;;
     esac
@@ -127,7 +123,7 @@ tput setaf 2; echo "Do you want to install Steam"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get -y install steam
+            sudo apt -y install steam
             break;;
         No ) break;;
     esac
@@ -140,8 +136,8 @@ select yn in "Yes" "No"; do
         Yes )
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update -qq
-            sudo apt-get install -y google-chrome-beta
+            sudo apt update -qq
+            sudo apt install -y google-chrome-beta
             break;;
         No ) break;;
     esac

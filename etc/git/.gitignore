@@ -1,8 +1,19 @@
+
+# If you are storing these files in this repo, you are doing it wrong.
+.ssh
+id_rsa*
+*.pub
+.aws
+.bash_history
+
+# Ignore ide configs
 .idea
 .vscode
 .sublime-text
 
+# ignore project dependency folders
 dist
 coverage
 build
 node_modules
+vendor

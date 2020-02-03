@@ -5,10 +5,10 @@ tput setaf 2; echo "Do you want to install Python Tools"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev
-            sudo apt-get install -y libreadline-dev libsqlite3-dev wget curl llvm
-            sudo apt-get install -y libncurses5-dev libncursesw5-dev xz-utils tk-dev
-            sudo apt-get install -y libffi-dev liblzma-dev python-openssl
+            sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev
+            sudo apt install -y libreadline-dev libsqlite3-dev wget curl llvm
+            sudo apt install -y libncurses5-dev libncursesw5-dev xz-utils tk-dev
+            sudo apt install -y libffi-dev liblzma-dev python-openssl
 
             git clone https://github.com/pyenv/pyenv.git ~/.pyenv
             git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
@@ -19,10 +19,10 @@ select yn in "Yes" "No"; do
             eval "$(pyenv init -)"
 
             pyenv install 2.7.17
-            sudo apt-get install -y python-pip
+            sudo apt install -y python-pip
 
             pyenv install 3.8.1
-            sudo apt-get install -y python3-pip
+            sudo apt install -y python3-pip
 
             pip3 install virtualenvwrapper
 	        pip3 install virtualenv
@@ -33,9 +33,6 @@ select yn in "Yes" "No"; do
         No ) break;;
     esac
 done
-
-
-
 
 
 tput setaf 2; echo "Do you want to install node.js and tools"; tput sgr0
@@ -79,109 +76,6 @@ select yn in "Yes" "No"; do
 done
 
 
-tput setaf 2; echo "Do you want to kerl and erlang"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            # Install version manager
-            git clone https://github.com/kerl/kerl ~/.kerl
-            export PATH="$HOME/.kerl:$PATH"
-
-            # For erlang deps
-            sudo apt-get install -y autoconf
-            sudo apt-get install -y automake
-            sudo apt-get install -y libncurses5-dev
-            sudo apt-get install -y xsltproc
-            sudo apt-get install -y libssl-dev
-            sudo apt-get install -y fop
-            sudo apt-get install -y libxml2-utils
-            sudo apt-get install -y unixodbc-dev
-            sudo apt-get install -y systemtap
-            sudo apt-get install -y systemtap-sdt-dev
-	          sudo apt-get install -y openjdk-8-jdk
-
-            # Kerl options (.kerl)
-            export KERL_BUILD_DOCS=yes
-            export KERL_USE_AUTOCONF=yes
-            export KERL_INSTALL_MANPAGES=yes
-            export KERL_BUILD_BACKEND=tarbal
-
-            export KERL_CONFIGURE_OPTIONS="\
-                --disable-native-libs \
-                --with-dynamic-trace=systemtap \
-                --with-ssl=/usr/local \
-                --with-javac \
-                --enable-vm-probes \
-                --enable-hipe \
-                --enable-kernel-poll \
-                --enable-threads \
-                --enable-sctp \
-                --enable-smp-support"
-
-            erlang_versions=(22.2)
-            for version in "${erlang_versions[@]}"
-            do
-                echo "Building Erlang version" "$version"
-                kerl build "$version" "$version"
-
-                echo "Installing Erlang version" "$version"
-                kerl install "$version" ~/.kerl/versions/"$version"
-            done
-
-            echo "Activate 22.2"
-            source ~/.kerl/versions/22.2/activate
-            break;;
-        No ) break;;
-    esac
-done
-
-
-tput setaf 2; echo "Do you want to install Elixir"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
-	        source "$HOME/.kiex/scripts/kiex"
-
-            elixir_versions=(1.9)
-            for version in "${elixir_versions[@]}"
-            do
-                echo "Installing Elixir version" "$version"
-                kiex install "$version"
-            done
-
-            echo "Set 1.9 as default version"
-            kiex default 1.9
-            break;;
-        No ) break;;
-    esac
-done
-
-
-
-
-
-
-
-tput setaf 2; echo "Do you want to install ocaml"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-          sudo apt-get install -y ocaml-nox
-          sudo apt-get install -y ocaml
-          sudo apt-get install -y opam
-
-          opam init
-          opam install merlin
-          opam user-setup install
-          break;;
-        No ) break;;
-    esac
-done
-
-
-
-
 tput setaf 2; echo "Do you want to install VirtualBox"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
@@ -190,48 +84,31 @@ select yn in "Yes" "No"; do
             wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 
             sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian disco contrib" >> /etc/apt/sources.list.d/virtualbox.org.list'
-            sudo apt-get update -qq
-            sudo apt-get install -y virtualbox
+            sudo apt update -qq
+            sudo apt install -y virtualbox
             break;;
         No ) break;;
     esac
 done
-
-
-
-
-tput setaf 2; echo "Do you want to install rust and rustup.rs"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-            export PATH="$HOME/.cargo/bin:$PATH"
-            sudo rustup completions bash | sudo tee -a /etc/bash_completion.d/rustup.bash-completion
-
-            rustup install nightly
-            rustup default nightly
-
-            cargo install racer
-            cargo install exa
-            cargo install fd-find
-            cargo install skim
-            break;;
-        No ) break;;
-    esac
-done
-
-
-
 
 
 tput setaf 2; echo "Do you want to install PHP7 and composer"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y php7.0
-            sudo apt-get install -y php7.0-fpm
-            sudo apt-get install -y php7.0-mysql
-            sudo apt-get install -y composer
+            sudo apt install software-properties-common
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt update
+            sudo apt install -y php7.3
+            sudo apt install -y php7.3-cli
+            sudo apt install -y php7.3-common
+            sudo apt install -y php7.3-curl
+            sudo apt install -y php7.3-fpm
+            sudo apt install -y php7.3-mbstring
+            sudo apt install -y php7.3-mysql
+            sudo apt install -y php7.3-xml
+            sudo apt install -y php7.3-zip
+            sudo apt install -y composer
             break;;
         No ) break;;
     esac
@@ -242,7 +119,7 @@ tput setaf 2; echo "Do you want to install nginx"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y nginx
+            sudo apt install -y nginx
             break;;
         No ) break;;
     esac
@@ -253,8 +130,8 @@ tput setaf 2; echo "Do you want install MariaDB"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y mariadb-server
-            sudo apt-get install -y mariadb-client
+            sudo apt install -y mariadb-server
+            sudo apt install -y mariadb-client
             break;;
         No ) break;;
     esac
@@ -265,14 +142,14 @@ tput setaf 2; echo "Do you want install Java 8,9 and tools"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y openjdk-8-jdk
-            sudo apt-get install -y openjdk-9-jdk
-            sudo apt-get install -y openjdk-11-jdk
+            sudo apt install -y openjdk-8-jdk
+            sudo apt install -y openjdk-9-jdk
+            sudo apt install -y openjdk-11-jdk
             sudo update-java-alternatives -s java-1.11.0-openjdk-amd64
 
-            sudo apt-get install -y maven
-            sudo apt-get install -y gradle
-            sudo apt-get install -y ant
+            sudo apt install -y maven
+            sudo apt install -y gradle
+            sudo apt install -y ant
             break;;
         No ) break;;
     esac
@@ -284,50 +161,11 @@ tput setaf 3; echo "Assume that Java is installed"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y scala
+            sudo apt install -y scala
             echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
             sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-            sudo apt-get update -qq
-            sudo apt-get install -y sbt
-            break;;
-        No ) break;;
-    esac
-done
-
-
-tput setaf 2; echo "Do you want install Clojure and lein"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            sudo apt-get install -y leiningen
-            sudo apt-get install -y clojure
-            break;;
-        No ) break;;
-    esac
-done
-
-
-
-
-tput setaf 2; echo "Do you want to install Haskell Platform"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            sudo apt-get install -y haskell-stack
-            sudo apt-get install -y haskell-platform
-            sudo apt-get install -y haskell-platform-doc
-            sudo apt-get install -y haskell-platform-prof
-            break;;
-        No ) break;;
-    esac
-done
-
-
-tput setaf 2; echo "Do you want install go-lang??"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            sudo apt-get install -y golang
+            sudo apt update -qq
+            sudo apt install -y sbt
             break;;
         No ) break;;
     esac
@@ -368,25 +206,6 @@ select yn in "Yes" "No"; do
     esac
 done
 
-tput setaf 2; echo "Do you want install Crystal and crenv"; tput sgr0
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            git clone https://github.com/pine/crenv.git ~/.crenv
-            git clone https://github.com/pine/crystal-build.git ~/.crenv/plugins/crystal-build
-            git clone https://github.com/pine/crenv-update.git ~/.crenv/plugins/crenv-update
-
-            export PATH="$HOME/.crenv/bin:$PATH"
-            eval "$(crenv init -)"
-
-            crenv install 0.32.1
-            crenv global 0.32.1
-            crenv rehash
-            break;;
-        No ) break;;
-    esac
-done
-
 
 tput setaf 2; echo "Do you want to install nix"; tput sgr0
 select yn in "Yes" "No"; do
@@ -405,8 +224,8 @@ select yn in "Yes" "No"; do
         Yes )
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
             sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable"
-            sudo apt-get update -qq
-            sudo apt-get install docker-ce docker-ce-cli containerd.io
+            sudo apt update -qq
+            sudo apt install docker-ce docker-ce-cli containerd.io
 
             sudo groupadd docker
             sudo usermod -aG docker "$USER"
@@ -416,14 +235,15 @@ select yn in "Yes" "No"; do
     esac
 done
 
+
 tput setaf 2; echo "Do you want to Android Studio"; tput sgr0
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
-            sudo apt-get install -y qemu-kvm
-            sudo apt-get install -y libvirt-bin
-            sudo apt-get install -y ubuntu-vm-builder
-            sudo apt-get install -y bridge-utils
+            sudo apt install -y qemu-kvm
+            sudo apt install -y libvirt-bin
+            sudo apt install -y ubuntu-vm-builder
+            sudo apt install -y bridge-utils
 
             sudo adduser "$USER" kvm
 
@@ -432,4 +252,3 @@ select yn in "Yes" "No"; do
         No ) break;;
     esac
 done
-

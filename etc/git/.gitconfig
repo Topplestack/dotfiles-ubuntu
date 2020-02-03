@@ -1,15 +1,28 @@
 [user]
-  name = chyzwar
-  email = schizek.marcin@gmail.com
+  name = Topplestack
+  email = topplestack@gmail.com
 
 [github]
-  user = chyzwar
-
+  user = Topplestack
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[color "status"]
+  added = green
+  changed = blue
+  untracked = red
+[color "diff"]
+  meta = yellow
+  old = red
+  new = green
+[commit]
+  template = ~/.gitmessage
 [core]
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
 
-  editor = vim
+  editor = atom
   filemode = false
   autocrlf = false
 
@@ -28,6 +41,7 @@
 
   find-branch = !sh -c \"git branch -a | grep -v remotes | grep $1 \"
 
+  plog = log --graph --pretty=format:'%C(bold blue)%h%Creset - %C(yellow)%d%Creset %s %C(cyan dim)(%cr)%Creset %n' --abbrev-commit --branches
 [grep]
   lineNumber = true
 
@@ -35,6 +49,7 @@
   autocorrect = 1
 
 [push]
+  followTags = true
   default = current
 
 [fetch]
